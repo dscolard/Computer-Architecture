@@ -7,7 +7,7 @@ public min, p, gcd
 min:
 		;Setup
 	 	push 	ebp 				; push old frame pointer
-		move 	ebp, esp			; set new frame pointer
+		mov 	ebp, esp			; set new frame pointer
 		sub 	esp, 4 				; allocate space for 'v'
 
 		;Body
