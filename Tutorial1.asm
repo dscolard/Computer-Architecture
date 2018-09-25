@@ -27,9 +27,9 @@ min1:
 		
 		;Return
 		add 	esp, 4            		; deallocate space for v
-    	mov 	esp, ebp        			; reset top of stack
-    	pop 	ebp            				; reset old frame pointer
-		ret 					; return
+		mov 	esp, ebp        		; reset top of stack
+		pop 	ebp            			; reset old frame pointer
+			ret 				; return
 
 
 
@@ -57,26 +57,26 @@ p:
 
 		;Return
 		mov 		esp, ebp        	; reset top of stack
-    	pop 	ebp            				; reset old frame pointer
+    		pop 		ebp            		; reset old frame pointer
 		ret 					; return
 
 
 
 
 gcd:	
-	;Setup
-	push      	ebp 	           		;push old frame pointer
-    	mov   	 	ebp, esp     	  		;set new frame pointer
-    	sub	    	esp, 4        	   		;declare local variable
+		;Setup
+		push      	ebp 	           		;push old frame pointer
+		mov   	 	ebp, esp     	  		;set new frame pointer
+		sub	    	esp, 4        	   		;declare local variable
 
-    	;Body
-    	mov 		ebx, [ebp+12]			; load 'b'		
-    	cmp 		ebx, 0 				; compare with 0
-    	jne 		gcd1				; jump to gcd1 if not equal
-    	mov 		eax, [ebp+8]  			; move 'a' to eax
-    	ret 						; return a
+		;Body
+		mov 		ebx, [ebp+12]			; load 'b'		
+		cmp 		ebx, 0 				; compare with 0
+		jne 		gcd1				; jump to gcd1 if not equal
+		mov 		eax, [ebp+8]  			; move 'a' to eax
+		ret 						; return a
 gcd1:	
-	push 		ebx 				; push 'b' as first parameter
+		push 		ebx 				; push 'b' as first parameter
 
 
 		;Unfinished
