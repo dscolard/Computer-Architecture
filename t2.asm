@@ -1,15 +1,12 @@
-.686
-.model flat, C
- option casemap:none
+option casemap:none
 
-includelib
-legacy_stdio_definitions.lib
+includelib legacy_stdio_definitions.lib
 
 extrn printf:near
 
 .data
 public g
-g DWORD 4
+g QWORD 4
 .code
 
 public minX64
@@ -36,12 +33,12 @@ pX64:
     mov         [rsp+56], r8       ; k
     mov         r8, rdx            ; j param 3
     mov         rdx, rcx           ; i param 2
-    mov         rcx, g             ; g param 1
-    call        min
+    mov         rcx, [g]             ; g param 1
+    call        minX64
     mov         rcx, rax           ; sum param 1
     mov         rdx, [rsp+56]      ; k param 2
     mov         r8, [rsp+64]       ; l param 3
-    call        min
+    call        minX64
     add         rsp, 32            ; deallocate shadow space
     ret                            ; return
 
@@ -61,7 +58,7 @@ gcd0:
     mov         rcx, rdx           ; load 'b'
     cqo
     idiv        QWORD ptr rcx
-    call        gcd
+    call        gcdX64
 
 gcd1:
     ret                            ; return gcd(b, a % b)
@@ -69,12 +66,14 @@ gcd1:
 
 public qX64
 
+fqX64 db 'a = %I64d b = %I64d c = %I64d d = %I64d e = %I64d sum = %I64d', 0AH, 00H
+
 qX64:
 	sub         rsp, 64
     lea         rax, [rcx+rdx]     ; a+b
     add         rax, r8            ; a+b+c
 	add         rax, r9            ; a+b+c+d
-	mov         r10, [rsp+104]     ; 
+	mov         r10, [rsp+104]     ;
 	add         rax, r10           ; sum
 
 	mov         [rsp+48], rax      ; sum
@@ -83,12 +82,12 @@ qX64:
 	mov         r9, r8             ; c
 	mov         r8, rdx            ; b
 	mov         rdx, rcx           ; a
-    lea         rcx, fq            ; 
+    lea         rcx, fqX64            ;
     mov         rbx, rax           ; move sum to rbx to preserve
     call        printf             ; call printf
 
-    mov         rax, rbx           ; put sum back into rax 
-    add         rsp, 64            ; deallocate shadow space    
+    mov         rax, rbx           ; put sum back into rax
+    add         rsp, 64            ; deallocate shadow space
     ret                            ; return
 
 
